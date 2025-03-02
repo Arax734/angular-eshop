@@ -1,14 +1,41 @@
 <app-search></app-search>
 <div class="productList flexbox">
-  <div class="productContainer flexbox" *ngFor="let product of products">
+  <div
+    class="productContainer flexbox"
+    *ngFor="let product of products"
+    [ngStyle]="{
+      'background-color': product.inStock > 0 ? '#e8f5e9' : '#ffebee',
+      border: '2px solid',
+      'border-color':
+        product.inStock > 10
+          ? '#1976d2'
+          : product.inStock > 5
+          ? '#f57c00'
+          : '#d32f2f',
+      transform: product.isHovered ? 'scale(1.02)' : 'scale(1)',
+      transition: 'all 0.3s ease'
+    }"
+    (mouseenter)="product.isHovered = true"
+    (mouseleave)="product.isHovered = false"
+  >
     <img [src]="product.pImage" [alt]="product.name" />
     <div class="productDetails flexbox-column">
       <p>{{ product.name }}</p>
-      <p>Price: {{ "$" + product.price }}</p>
+      <p [ngStyle]="{ color: product.price > 100 ? '#d32f2f' : '#388e3c' }">
+        Price: {{ "$" + product.price }}
+      </p>
       <p>Color: {{ product.color }}</p>
-      <p>
-        Discounted Price:
-        {{ getDiscountedPrice(product).toFixed(2) }}
+      <p
+        [ngStyle]="{
+          'font-weight':
+            getDiscountedPrice(product) < product.price ? 'bold' : 'normal',
+          'text-decoration':
+            getDiscountedPrice(product) < product.price ? 'underline' : 'none',
+          color:
+            getDiscountedPrice(product) < product.price ? '#f57c00' : '#333'
+        }"
+      >
+        Discounted Price: {{ getDiscountedPrice(product).toFixed(2) }}
       </p>
       <p>
         {{

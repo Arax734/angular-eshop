@@ -14,7 +14,7 @@ export class ProductListComponent {
       price: 999,
       color: 'Pink',
       pImage: 'iphone15.jpg',
-      inStock: 5,
+      inStock: 8,
       discount: 10,
       cartCount: 0,
     },
@@ -23,7 +23,7 @@ export class ProductListComponent {
       price: 799,
       color: 'Purple',
       pImage: 'iphone14.jpg',
-      inStock: 3,
+      inStock: 20,
       discount: 15,
       cartCount: 0,
     },
@@ -37,20 +37,4 @@ export class ProductListComponent {
       cartCount: 0,
     },
   ];
-
-  getDiscountedPrice(product: any) {
-    return product.price - (product.price * product.discount) / 100;
-  }
-
-  incrementCart(product: any) {
-    if (product.cartCount < product.inStock) {
-      product.cartCount++;
-    }
-  }
-
-  decrementCart(product: any) {
-    if (product.cartCount > 0) {
-      product.cartCount--;
-    }
-  }
 }
